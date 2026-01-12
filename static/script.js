@@ -139,14 +139,73 @@ function displayHand(data, agentId) {
     const summary = data.summary;
     const steps = data.steps;
     
-    // Display Cards
-    displayCards(summary);
+    // Display Cards and game state
+    displayGameTable(summary, steps);
     
     // Display Result
     displayResult(data.payoff, summary);
     
     // Display Trace
     displayTrace(steps);
+}
+
+// Display Game Table with Cards
+function displayGameTable(summary, steps) {
+    const playerCardsDiv = document.getElementById('player-cards');
+    const dealerCardsDiv = document.getElementById('dealer-cards');
+    const playerTotalDiv = document.getElementById('player-total');
+    const dealerTotalDiv = document.getElementById('dealer-total');
+    const actionIndicator = document.getElementById('action-indicator');
+    const agentInfo = document.getElementById('agent-info');
+    
+    // Clear previous content
+    playerCardsDiv.innerHTML = '';
+    dealerCardsDiv.innerHTML = '';
+    
+    // Extract cards from trace
+    const playerCards = [];
+    const dealerCards = [];
+    
+    steps.forEach(step => {
+        if (step.card !== null) {
+            if (step.actor === 'PLAYER') {
+                playerCards.push(step.card);
+            } else if (step.actor === 'SYSTEM' || step.actor === 'DEALER') {
+                dealerCards.push(step.card);
+            }
+        }
+    });
+    
+    // Display player cards
+    if (playerCards.length > 0) {
+        playerCards.forEach(card => {
+            const cardEl = document.createElement('div');
+            cardEl.className = 'card';
+            cardEl.innerHTML = cardEmojis[card] || '🃏';
+            playerCardsDiv.appendChild(cardEl);
+        });
+    }
+    
+    // Display dealer cards
+    if (dealerCards.length > 0) {
+        dealerCards.forEach((card, index) => {
+            const cardEl = document.createElement('div');
+            cardEl.className = 'card';
+            // First card is shown, second might be hidden in some traces
+            cardEl.innerHTML = cardEmojis[card] || '🃏';
+            dealerCardsDiv.appendChild(cardEl);
+        });
+    }
+    
+    // Update totals
+    playerTotalDiv.innerHTML = `Total: <strong>${summary.player_total}</strong>`;
+    dealerTotalDiv.innerHTML = `Total: <strong>${summary.dealer_total}</strong>`;
+    
+    // Update action indicator
+    actionIndicator.innerHTML = '✓ Hand Complete';
+    
+    // Update agent info
+    agentInfo.innerHTML = `<strong>Agent:</strong> ${summary.agent} | <strong>Dealer Upcard:</strong> ${cardEmojis[summary.dealer_upcard] || '?'}`;
 }
 
 // Display Cards

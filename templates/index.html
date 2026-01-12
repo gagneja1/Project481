@@ -46,25 +46,42 @@
                     </div>
                 </div>
 
-                <!-- Hand Display -->
+                <!-- Hand Display / Blackjack Table -->
                 <div class="game-display">
                     <div id="game-content" style="display: none;">
-                        <!-- Game will be rendered here -->
-                        <div class="game-board">
-                            <div class="player-section">
-                                <h3>Player Hand</h3>
-                                <div id="player-cards" class="card-display"></div>
-                                <div id="player-total" class="total"></div>
+                        <!-- Blackjack Table -->
+                        <div class="blackjack-table">
+                            <!-- Dealer Section -->
+                            <div class="table-section dealer-section">
+                                <div class="section-label">DEALER</div>
+                                <div id="dealer-cards" class="card-area">
+                                    <!-- Dealer cards go here -->
+                                </div>
+                                <div id="dealer-total" class="section-total">Total: 0</div>
                             </div>
 
-                            <div class="dealer-section">
-                                <h3>Dealer Hand</h3>
-                                <div id="dealer-cards" class="card-display"></div>
-                                <div id="dealer-total" class="total"></div>
+                            <!-- Game Status / Action Area -->
+                            <div class="table-center">
+                                <div id="action-indicator" class="action-indicator"></div>
+                            </div>
+
+                            <!-- Player Section -->
+                            <div class="table-section player-section">
+                                <div class="section-label">PLAYER</div>
+                                <div id="player-cards" class="card-area">
+                                    <!-- Player cards go here -->
+                                </div>
+                                <div id="player-total" class="section-total">Total: 0</div>
                             </div>
                         </div>
 
-                        <div id="result-box" class="result-box"></div>
+                        <!-- Game Info and Results -->
+                        <div class="game-info">
+                            <div id="result-box" class="result-box"></div>
+                            <div id="agent-info" class="agent-info"></div>
+                        </div>
+
+                        <!-- Steps Trace -->
                         <div id="steps-trace" class="steps-trace"></div>
                     </div>
 
